@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">App_Project</string>
+    <string name="team_members">Team Members</string>
+    <string name="tasks">Tasks</string>
+    <string name="chat">Chat</string>
+    <string name="description_of_task">description of task</string>
+</resources>
