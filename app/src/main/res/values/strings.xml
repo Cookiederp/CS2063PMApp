@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PM_App</string>
+    <string name="SignIn_Register">Sign In/Register</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="SignIn">Sign In</string>
+    <string name="RegisterAcct">Register for Account</string>
+    <string name="LastName">Last Name</string>
+    <string name="CreateAccount">Create Account</string>
+    <string name="FirstName">First Name</string>
 </resources>
