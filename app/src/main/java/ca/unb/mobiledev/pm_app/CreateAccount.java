@@ -57,7 +57,6 @@ public class CreateAccount extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                UserModel user;
                 String firstName_text = et_fname.getText().toString();
                 String lastName_text = et_lname.getText().toString();
                 String email_text = et_email.getText().toString();
@@ -84,12 +83,12 @@ public class CreateAccount extends AppCompatActivity {
                         //User register successfully
                         if(task.isSuccessful()){
                             FirebaseUser firebaseUser = auth.getCurrentUser();
-                            String userid = firebaseUser.getUid();
+                            String userId = firebaseUser.getUid();
 
-                            myRef = FirebaseDatabase.getInstance().getReference("users").child(userid);
+                            myRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
                             HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put("id", userid);
+                            hashMap.put("id", userId);
                             hashMap.put("firstName", firstName);
                             hashMap.put("lastName", lastName);
                             hashMap.put("profilePicURL", "default");
@@ -98,7 +97,6 @@ public class CreateAccount extends AppCompatActivity {
                             myRef.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-
                                     if(task.isSuccessful()){
                                         Intent intent = new Intent(CreateAccount.this, AccountHomePage.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

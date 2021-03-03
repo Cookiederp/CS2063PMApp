@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ca.unb.mobiledev.pm_app">
 
     <application
@@ -19,6 +20,10 @@
 
         <activity android:name=".CreateAccount"/>
         <activity android:name=".AccountHomePage"/>
+        <activity android:name=".CreateProject"/>
+        <activity android:name=".ProjectsList"/>
+        <activity android:name=".ProjectPage"/>
+
     </application>
 
 </manifest>

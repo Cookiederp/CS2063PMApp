@@ -22,13 +22,15 @@ import com.google.firebase.database.ValueEventListener;
 public class AccountHomePage extends AppCompatActivity {
 
     private Button logoutBtn;
+    private Button createProjectBtn;
+    private Button projectsBtn;
     TextView register;
 
 
 
     FirebaseUser firebaseUser;
-    DatabaseReference myRef;
-
+    DatabaseReference usersRef;
+    private String currentUserId;
 
 
 
@@ -38,14 +40,20 @@ public class AccountHomePage extends AppCompatActivity {
         setContentView(R.layout.activity_accounthompage);
 
         logoutBtn = findViewById(R.id.btn_logout);
-
+        createProjectBtn = findViewById(R.id.btn_createproj);
+        projectsBtn = findViewById(R.id.btn_projects);
+        //firebase
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        myRef = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+        currentUserId = firebaseUser.getUid();
+        usersRef = FirebaseDatabase.getInstance().getReference("Users").child(currentUserId);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+
+        //retrieve the data of the signed in user, might be useful later, right now it is useless
+        usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
+                Toast.makeText(AccountHomePage.this, "User First Name: " + users.getFirstName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -53,6 +61,7 @@ public class AccountHomePage extends AppCompatActivity {
 
             }
         });
+
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,5 +72,30 @@ public class AccountHomePage extends AppCompatActivity {
             }
         });
 
+
+        createProjectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountHomePage.this, CreateProject.class));
+                finish();
+            }
+        });
+
+
+        projectsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountHomePage.this, ProjectsList.class));
+                finish();
+            }
+        });
+
     }
+
+
+
+
+
+
 }
+
