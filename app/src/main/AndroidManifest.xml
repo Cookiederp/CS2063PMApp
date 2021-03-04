@@ -23,7 +23,7 @@
         <activity android:name=".CreateProject"/>
         <activity android:name=".ProjectsList"/>
         <activity android:name=".ProjectPage"/>
-
+        <activity android:name=".MembersList"/>
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -111,6 +112,7 @@ public class ProjectsList extends AppCompatActivity {
             //To be added later - > String projectIcon = project.getIcon();
             String projectName = project.getProjectName();
 
+
             holder.projectTitleText.setText(projectName);
 
             //try{
@@ -128,7 +130,6 @@ public class ProjectsList extends AppCompatActivity {
                     intent.putExtra("projectId", projectId);
                     intent.putExtra("projectName", projectName);
                     startActivity(intent);
-                    finish();
                 }
 
             });
