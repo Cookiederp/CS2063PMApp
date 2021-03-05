@@ -77,7 +77,6 @@ public class AccountHomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AccountHomePage.this, CreateProject.class));
-                finish();
             }
         });
 
@@ -86,7 +85,6 @@ public class AccountHomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AccountHomePage.this, ProjectsList.class));
-                finish();
             }
         });
 
