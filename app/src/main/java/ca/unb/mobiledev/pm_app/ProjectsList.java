@@ -63,7 +63,7 @@ public class ProjectsList extends AppCompatActivity {
         projectsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                projectsList.size();
+                projectsList.clear();
                 AdapterProjectList adapterProjectList;
                 //search project for current signed in User, if userId is found in a project, add to view
                 for (DataSnapshot child : snapshot.getChildren()) {

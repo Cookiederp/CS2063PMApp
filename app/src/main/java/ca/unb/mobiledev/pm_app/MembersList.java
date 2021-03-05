@@ -68,7 +68,7 @@ public class MembersList extends AppCompatActivity {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                membersList.size();
+                membersList.clear();
 
 
                 for (DataSnapshot child : snapshot.getChildren()) {

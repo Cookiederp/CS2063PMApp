@@ -49,15 +49,14 @@ public class ProjectPage extends AppCompatActivity {
             }
         });
 
-        //not added yet
+
         tasksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProjectPage.this, ProjectPage.class);
+                Intent intent = new Intent(ProjectPage.this, TasksPage.class);
                 intent.putExtra("projectId", projectId);
                 intent.putExtra("projectName", projectName);
                 startActivity(intent);
-                finish();
             }
         });
 
