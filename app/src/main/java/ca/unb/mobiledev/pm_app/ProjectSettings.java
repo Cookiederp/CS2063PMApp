@@ -2,9 +2,16 @@ package ca.unb.mobiledev.pm_app;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -24,11 +31,16 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.exifinterface.media.ExifInterface;
 
 public class ProjectSettings extends AppCompatActivity {
 
@@ -52,6 +64,8 @@ public class ProjectSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projectsettings);
+
+
 
         Intent intent = getIntent();
         projectId = intent.getStringExtra("projectId");
@@ -125,7 +139,7 @@ public class ProjectSettings extends AppCompatActivity {
 
     }
 
-    private void UploadMyImage(){
+    private void UploadMyImage() throws IOException {
         final ProgressDialog progressDialog = new ProgressDialog(ProjectSettings.this);
         progressDialog.setMessage("Uploading");
         progressDialog.show();
@@ -133,7 +147,38 @@ public class ProjectSettings extends AppCompatActivity {
         if(imageUri != null){
             final StorageReference fileReference = storageReference.child(projectId + "." + getFileExtension(imageUri));
 
-            uploadTask = fileReference.putFile(imageUri);
+
+
+            //resize, rotating, compressing image before it is sent to firebase storage
+            Bitmap imageBitmap = decodeUri(ProjectSettings.this, imageUri, 256);
+            ExifInterface ei = new ExifInterface( getRealPathFromURI(ProjectSettings.this, imageUri));
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+            Bitmap rotatedBitmap = null;
+            switch(orientation) {
+
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotatedBitmap = rotateImage(imageBitmap, 90);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotatedBitmap = rotateImage(imageBitmap, 180);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotatedBitmap = rotateImage(imageBitmap, 270);
+                    break;
+
+                case ExifInterface.ORIENTATION_NORMAL:
+                default:
+                    rotatedBitmap = imageBitmap;
+            }
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 75, baos);
+            byte[] data = baos.toByteArray();
+            uploadTask = fileReference.putBytes(data);
+            //end
+
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -179,8 +224,76 @@ public class ProjectSettings extends AppCompatActivity {
 
     }
 
-    private  void deleteOldIcon(){
+    public Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
+    }
 
+    public Bitmap decodeUri(Context c, Uri uri, final int requiredSize)
+            throws FileNotFoundException {
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o);
+
+        int width_tmp = o.outWidth, height_tmp = o.outHeight;
+        int scale = 1;
+
+        while(true) {
+            if(width_tmp / 2 < requiredSize || height_tmp / 2 < requiredSize){
+                break;
+            }
+            width_tmp /= 2;
+            height_tmp /= 2;
+            scale *= 2;
+        }
+
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        return BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o2);
+    }
+
+    public String getRealPathFromURI(Context context, Uri uri) {
+        Uri queryUri = MediaStore.Files.getContentUri("external");
+        String columnData = MediaStore.Files.FileColumns.DATA;
+        String columnSize = MediaStore.Files.FileColumns.SIZE;
+
+        String[] projectionData = {MediaStore.Files.FileColumns.DATA};
+
+        String name = null;
+        String size = null;
+
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        if ((cursor != null) && (cursor.getCount() > 0)) {
+            int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+
+            cursor.moveToFirst();
+
+            name = cursor.getString(nameIndex);
+            size = cursor.getString(sizeIndex);
+
+            cursor.close();
+        }
+
+        String imagePath = "";
+        if ((name != null) && (size != null)) {
+            String selectionNS = columnData + " LIKE '%" + name + "' AND " + columnSize + "='" + size + "'";
+
+            Cursor cursorLike = context.getContentResolver().query(queryUri, projectionData, selectionNS, null, null);
+
+            if ((cursorLike != null) && (cursorLike.getCount() > 0)) {
+                cursorLike.moveToFirst();
+                int indexData = cursorLike.getColumnIndex(columnData);
+                if (cursorLike.getString(indexData) != null) {
+                    imagePath = cursorLike.getString(indexData);
+                }
+                cursorLike.close();
+            }
+        }
+
+        return imagePath;
     }
 
     @Override
@@ -196,7 +309,11 @@ public class ProjectSettings extends AppCompatActivity {
                 Toast.makeText(ProjectSettings.this, "Uploading...", Toast.LENGTH_SHORT).show();
             }
             else{
-                UploadMyImage();
+                try {
+                    UploadMyImage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
