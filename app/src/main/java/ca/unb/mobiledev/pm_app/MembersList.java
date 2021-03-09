@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -131,6 +132,7 @@ public class MembersList extends AppCompatActivity {
             String userFirstName = user.getFirstName();
             String userLastName = user.getLastName();
             String userRole = user.getRole();
+            String userProfilePicURL = user.getProfilePicURL();
 
             //display name on the card
             StringBuilder sb = new StringBuilder();
@@ -144,6 +146,14 @@ public class MembersList extends AppCompatActivity {
             sb.append("Role: ");
             sb.append(userRole);
             holder.userRoleTV.setText(sb);
+
+            if(userProfilePicURL.equals("default")){
+                holder.userProfilePicIV.setImageResource(R.mipmap.ic_launcher);
+            }
+            else{
+                Glide.with(MembersList.this).load(userProfilePicURL).into(holder.userProfilePicIV);
+            }
+
             //try{
             //something with picasso to cache icon in the future.
             //}
@@ -173,16 +183,18 @@ public class MembersList extends AppCompatActivity {
 
         class MyHolder extends RecyclerView.ViewHolder{
 
-            private ImageView userIconImageView;
+            private ImageView userProfilePicIV;
             private TextView userNameTV;
             private TextView userRoleTV;
 
             public MyHolder(@NonNull View itemView){
                 super(itemView);
 
-                userIconImageView = itemView.findViewById(R.id.icon_user);
+
                 userNameTV = itemView.findViewById(R.id.tv_name);
                 userRoleTV = itemView.findViewById(R.id.tv_role);
+                userProfilePicIV = itemView.findViewById(R.id.icon_user);
+
             }
 
 

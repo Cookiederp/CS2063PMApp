@@ -33,6 +33,7 @@ public class TasksPage extends AppCompatActivity {
     private RecyclerView recyclerView ;
     private Button createTaskButton;
 
+    private String projectId;
 
     //get logged in user
     private FirebaseAuth auth;
@@ -52,8 +53,8 @@ public class TasksPage extends AppCompatActivity {
         setContentView(R.layout.activity_taskspage);
 
         Intent intent = getIntent();
-        String projectId = intent.getStringExtra("projectId");
-        String projectName = intent.getStringExtra("projectName");
+        projectId = intent.getStringExtra("projectId");
+        //String projectName = intent.getStringExtra("projectName");
 
         //View view = inflater.inflate(R.layout.fragment_projects, container, false);
 
@@ -127,6 +128,7 @@ public class TasksPage extends AppCompatActivity {
             //can get any data from a project here
             String taskId = task.getId();
             String taskName = task.getTitle();
+            String taskDesc = task.getDescription();
             //To be added later - > String projectIcon = user.getIcon();
 
             //display name on the card
@@ -145,11 +147,12 @@ public class TasksPage extends AppCompatActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    //Intent intent = new Intent(ProjectsList.this, ProjectPage.class);
-                    //intent.putExtra("projectId", projectId);
-                    //intent.putExtra("projectName", projectName);
-                    //(intent);
-                    //finish();
+                    Intent intent = new Intent(TasksPage.this, TaskDetail.class);
+                    intent.putExtra("projectId", projectId);
+                    intent.putExtra("taskId", taskId);
+                    intent.putExtra("taskName", taskName);
+                    intent.putExtra("taskDescription", taskDesc);
+                    startActivity(intent);
                 }
 
             });

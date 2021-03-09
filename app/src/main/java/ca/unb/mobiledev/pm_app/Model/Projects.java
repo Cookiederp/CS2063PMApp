@@ -8,15 +8,25 @@ public class Projects {
     private String projectName;
     private String id;
     private HashMap<String, String> members;
+    private String iconPicURL;
 
 
     public Projects(){
     }
 
-    public Projects(String projectName, String id, HashMap<String, String> members) {
+    public Projects(String projectName, String id, HashMap<String, String> members, String iconPicURL) {
         this.projectName = projectName;
         this.id = id;
         this.members = members;
+        this.iconPicURL = iconPicURL;
+    }
+
+    public String getIconPicURL() {
+        return iconPicURL;
+    }
+
+    public void setIconPicURL(String iconPicURL) {
+        this.iconPicURL = iconPicURL;
     }
 
     public String getProjectName() {
