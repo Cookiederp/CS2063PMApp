@@ -24,6 +24,8 @@
         <activity android:name=".ProjectsList"/>
         <activity android:name=".ProjectPage"/>
         <activity android:name=".MembersList"/>
+        <activity android:name=".MemberPage"/>
+        <activity android:name=".AddMember"/>
     </application>
 
 </manifest>

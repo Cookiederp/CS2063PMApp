@@ -8,4 +8,8 @@
     <string name="LastName">Last Name</string>
     <string name="CreateAccount">Create Account</string>
     <string name="FirstName">First Name</string>
+    <string name="AddMember">Add Member</string>
+    <string name="ProfilePicture">Profile Picture</string>
+    <string name="SearchUser">Search For User</string>
+    <string name="enterUser">Enter User to Search for</string>
 </resources>
