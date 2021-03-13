@@ -8,4 +8,6 @@
     <string name="LastName">Last Name</string>
     <string name="CreateAccount">Create Account</string>
     <string name="FirstName">First Name</string>
+    <string name="TeamMembers">Team Members</string>
+    <string name="Tasks">Tasks</string>
 </resources>
