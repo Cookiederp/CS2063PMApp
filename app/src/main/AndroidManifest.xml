@@ -28,6 +28,8 @@
         <activity android:name=".ProjectsList"/>
         <activity android:name=".ProjectPage"/>
         <activity android:name=".MembersList"/>
+        <activity android:name=".MemberPage"/>
+        <activity android:name=".AddMember"/>
         <activity android:name=".TasksPage"/>
         <activity android:name=".CreateTask"/>
         <activity android:name=".TaskDetail"/>
