@@ -10,25 +10,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/icon_project"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon_user"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_addMemname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="20dp"
-            android:layout_toEndOf="@id/icon_project"
+            android:layout_toEndOf="@id/icon_user"
             android:textSize="20sp"
             android:textColor="@color/black"
             />
+
 
     </RelativeLayout>
 

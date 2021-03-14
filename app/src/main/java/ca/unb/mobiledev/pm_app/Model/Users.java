@@ -8,6 +8,7 @@ public class Users {
     private String firstName;
     private String lastName;
     private String profilePicURL;
+    private String role;
     //projects user owns or joined and is currently still in
     private ArrayList<String> projectIds;
 
@@ -19,6 +20,7 @@ public class Users {
         this.lastName = lastName;
         this.profilePicURL = profilePicURL;
         this.projectIds = projectIds;
+        this.role = null;
     }
 
     public String getId() {
@@ -59,5 +61,13 @@ public class Users {
 
     public void addProjectId(String projectId) {
         this.projectIds.add(projectId);
+    }
+
+    public void setRole(String role){
+        this.role = role;
+    }
+
+    public String getRole(){
+        return role;
     }
 }

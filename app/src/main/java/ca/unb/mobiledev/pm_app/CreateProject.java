@@ -84,6 +84,7 @@ public class CreateProject extends AppCompatActivity {
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("projectName", pName);
+        hashMap.put("iconPicURL", "default");
         hashMap.put("id", projectId); //generate key from the push to assign to project. Each key is unique and it will be how projects are found
 
         myRef.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
