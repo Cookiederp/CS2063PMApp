@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -88,7 +89,7 @@ public class MembersList extends AppCompatActivity {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                membersList.size();
+                membersList.clear();
 
 
                 for (DataSnapshot child : snapshot.getChildren()) {
@@ -151,7 +152,10 @@ public class MembersList extends AppCompatActivity {
             String userFirstName = user.getFirstName();
             String userLastName = user.getLastName();
             String userRole = user.getRole();
+          // alex
             String userPic = user.getProfilePicURL();
+          // dev
+            String userProfilePicURL = user.getProfilePicURL();
 
             //display name on the card
             StringBuilder sb = new StringBuilder();
@@ -165,7 +169,14 @@ public class MembersList extends AppCompatActivity {
             sb.append("Role: ");
             sb.append(userRole);
             holder.userRoleTV.setText(sb);
-            new GetImageFromURL(holder.userIconImageView).execute(userPic);
+
+            if(userProfilePicURL.equals("default")){
+                holder.userProfilePicIV.setImageResource(R.mipmap.ic_launcher);
+            }
+            else{
+                Glide.with(MembersList.this).load(userProfilePicURL).into(holder.userProfilePicIV);
+            }
+
             //try{
             //something with picasso to cache icon in the future.
             //}
@@ -196,16 +207,18 @@ public class MembersList extends AppCompatActivity {
 
         class MyHolder extends RecyclerView.ViewHolder{
 
-            private ImageView userIconImageView;
+            private ImageView userProfilePicIV;
             private TextView userNameTV;
             private TextView userRoleTV;
 
             public MyHolder(@NonNull View itemView){
                 super(itemView);
 
-                userIconImageView = itemView.findViewById(R.id.icon_user);
+
                 userNameTV = itemView.findViewById(R.id.tv_name);
                 userRoleTV = itemView.findViewById(R.id.tv_role);
+                userProfilePicIV = itemView.findViewById(R.id.icon_user);
+
             }
 
 

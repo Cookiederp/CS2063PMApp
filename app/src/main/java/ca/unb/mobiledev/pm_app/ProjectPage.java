@@ -19,6 +19,7 @@ public class ProjectPage extends AppCompatActivity {
     private Button groupChatButton;
     private Button tasksButton;
     private Button membersButton;
+    private Button projectSettingsButton;
 
 
     @Override
@@ -31,10 +32,13 @@ public class ProjectPage extends AppCompatActivity {
         groupChatButton = findViewById(R.id.btn_groupchat);
         tasksButton = findViewById(R.id.btn_tasks);
         membersButton = findViewById(R.id.btn_members);
+        projectSettingsButton = findViewById(R.id.btn_projectsettings);
+
 
         Intent intent = getIntent();
         String projectId = intent.getStringExtra("projectId");
         String projectName = intent.getStringExtra("projectName");
+        String projectIconURL = intent.getStringExtra("projectIconURL");
         projectNameTextView.setText(projectName);
 
         //not added yet
@@ -49,15 +53,14 @@ public class ProjectPage extends AppCompatActivity {
             }
         });
 
-        //not added yet
+
         tasksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProjectPage.this, ProjectPage.class);
+                Intent intent = new Intent(ProjectPage.this, TasksPage.class);
                 intent.putExtra("projectId", projectId);
                 intent.putExtra("projectName", projectName);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -68,6 +71,18 @@ public class ProjectPage extends AppCompatActivity {
                 Intent intent = new Intent(ProjectPage.this, MembersList.class);
                 intent.putExtra("projectId", projectId);
                 intent.putExtra("projectName", projectName);
+                startActivity(intent);
+            }
+        });
+
+
+        projectSettingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProjectPage.this, ProjectSettings.class);
+                intent.putExtra("projectId", projectId);
+                intent.putExtra("projectName", projectName);
+                intent.putExtra("projectIconURL", projectIconURL);
                 startActivity(intent);
             }
         });

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -63,7 +64,7 @@ public class ProjectsList extends AppCompatActivity {
         projectsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                projectsList.size();
+                projectsList.clear();
                 AdapterProjectList adapterProjectList;
                 //search project for current signed in User, if userId is found in a project, add to view
                 for (DataSnapshot child : snapshot.getChildren()) {
@@ -111,9 +112,16 @@ public class ProjectsList extends AppCompatActivity {
             String projectId = project.getId();
             //To be added later - > String projectIcon = project.getIcon();
             String projectName = project.getProjectName();
-
+            String iconPicURL = project.getIconPicURL();
 
             holder.projectTitleText.setText(projectName);
+
+            if(iconPicURL == null || iconPicURL.equals("default")){
+                holder.projectIconIV.setImageResource(R.mipmap.ic_launcher);
+            }
+            else{
+                Glide.with(ProjectsList.this).load(iconPicURL).into(holder.projectIconIV);
+            }
 
             //try{
             //something with picasso to cache icon in the future.
@@ -129,6 +137,7 @@ public class ProjectsList extends AppCompatActivity {
                     Intent intent = new Intent(ProjectsList.this, ProjectPage.class);
                     intent.putExtra("projectId", projectId);
                     intent.putExtra("projectName", projectName);
+                    intent.putExtra("projectIconURL", iconPicURL);
                     startActivity(intent);
                 }
 
@@ -143,13 +152,13 @@ public class ProjectsList extends AppCompatActivity {
 
         class HolderProjectList extends RecyclerView.ViewHolder{
 
-            private ImageView projectIconImageView;
+            private ImageView projectIconIV;
             private TextView projectTitleText;
 
             public HolderProjectList(@NonNull View itemView){
                 super(itemView);
 
-                projectIconImageView = itemView.findViewById(R.id.icon_project);
+                projectIconIV = itemView.findViewById(R.id.icon_project);
                 projectTitleText = itemView.findViewById(R.id.tv_title);
             }
 
