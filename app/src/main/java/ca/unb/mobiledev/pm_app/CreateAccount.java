@@ -91,7 +91,7 @@ public class CreateAccount extends AppCompatActivity {
                             hashMap.put("id", userId);
                             hashMap.put("firstName", firstName);
                             hashMap.put("lastName", lastName);
-                            hashMap.put("profilePicURL", "default");
+                            hashMap.put("profilePicURL", "https://cbwc.ca/wp-content/uploads/2019/03/blank-profile-picture-973460_640.png");
 
                             //Proceed to inside the app after user account is successfully registered.
                             myRef.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {

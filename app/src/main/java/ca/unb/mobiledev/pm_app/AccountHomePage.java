@@ -24,13 +24,15 @@ public class AccountHomePage extends AppCompatActivity {
     private Button logoutBtn;
     private Button createProjectBtn;
     private Button projectsBtn;
+    private Button userSettingsBtn;
     TextView register;
 
 
 
     FirebaseUser firebaseUser;
     DatabaseReference usersRef;
-    private String currentUserId;
+    private String userId;
+    private String userIconURL;
 
 
 
@@ -42,10 +44,11 @@ public class AccountHomePage extends AppCompatActivity {
         logoutBtn = findViewById(R.id.btn_logout);
         createProjectBtn = findViewById(R.id.btn_createproj);
         projectsBtn = findViewById(R.id.btn_projects);
+        userSettingsBtn = findViewById(R.id.btn_usettings);
         //firebase
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        currentUserId = firebaseUser.getUid();
-        usersRef = FirebaseDatabase.getInstance().getReference("Users").child(currentUserId);
+        userId = firebaseUser.getUid();
+        usersRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
 
         //retrieve the data of the signed in user, might be useful later, right now it is useless
@@ -53,6 +56,7 @@ public class AccountHomePage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
+                userIconURL = users.getProfilePicURL();
                 Toast.makeText(AccountHomePage.this, "User First Name: " + users.getFirstName(), Toast.LENGTH_SHORT).show();
             }
 
@@ -77,7 +81,6 @@ public class AccountHomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AccountHomePage.this, CreateProject.class));
-                finish();
             }
         });
 
@@ -86,7 +89,16 @@ public class AccountHomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AccountHomePage.this, ProjectsList.class));
-                finish();
+            }
+        });
+
+        userSettingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AccountHomePage.this, UserSettings.class);
+                intent.putExtra("userId", userId);
+                intent.putExtra("userIconURL", userIconURL);
+                startActivity(intent);
             }
         });
 

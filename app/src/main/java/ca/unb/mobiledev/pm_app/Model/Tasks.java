@@ -2,7 +2,7 @@ package ca.unb.mobiledev.pm_app.Model;
 
 public class Tasks {
 
-    private String id;
+    private String Id;
     private String projectId;
     private String title;
     private String description;
@@ -13,7 +13,7 @@ public class Tasks {
     }
 
     public Tasks(String id, String projectId, String title, String description, String deadline) {
-        this.id = id;
+        this.Id = id;
         this.projectId = projectId;
         this.title = title;
         this.description = description;
@@ -21,11 +21,11 @@ public class Tasks {
     }
 
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getProjectId() {
