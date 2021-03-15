@@ -33,7 +33,8 @@
         <activity android:name=".TasksPage"/>
         <activity android:name=".CreateTask"/>
         <activity android:name=".TaskDetail"/>
-        <activity android:name="ProjectSettings"/>
+        <activity android:name=".ProjectSettings"/>
+        <activity android:name=".UserSettings"/>
     </application>
 
 </manifest>

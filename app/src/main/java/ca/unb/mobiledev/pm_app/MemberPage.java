@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,7 +21,7 @@ import java.io.InputStream;
 public class MemberPage extends AppCompatActivity {
     private TextView nameTV;
     private TextView roleTV;
-    private ImageView img;
+    private ImageView userProfilePicIV;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,16 +32,27 @@ public class MemberPage extends AppCompatActivity {
         String userFName = intent.getStringExtra("firstName");
         String userLName = intent.getStringExtra("lastName");
         String userRole = intent.getStringExtra("userRole");
-        String picURL = intent.getStringExtra("userPicture");
+        String userProfilePicURL = intent.getStringExtra("userPicture");
 
         nameTV = findViewById(R.id.userName_tv);
         roleTV = findViewById(R.id.userRole_tv);
-        img = (ImageView)findViewById(R.id.profilePicture);
+        userProfilePicIV = findViewById(R.id.profilePicture);
 
         nameTV.setText(userFName + " " + userLName);
         roleTV.setText(userRole);
-        new GetImageFromURL(img).execute(picURL);
+
+        //might use later
+        //new GetImageFromURL(img).execute(picURL);
+
+        if(userProfilePicURL.equals("default")){
+            userProfilePicIV.setImageResource(R.mipmap.ic_launcher);
+        }
+        else{
+            Glide.with(MemberPage.this).load(userProfilePicURL).into(userProfilePicIV);
+        }
     }
+    //might use later
+    /*
     public class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
         ImageView imgView;
         Bitmap bmap;
@@ -65,4 +77,5 @@ public class MemberPage extends AppCompatActivity {
             imgView.setImageBitmap(bitmap);
         }
     }
+     */
 }

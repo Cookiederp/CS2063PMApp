@@ -152,9 +152,7 @@ public class MembersList extends AppCompatActivity {
             String userFirstName = user.getFirstName();
             String userLastName = user.getLastName();
             String userRole = user.getRole();
-          // alex
-            String userPic = user.getProfilePicURL();
-          // dev
+
             String userProfilePicURL = user.getProfilePicURL();
 
             //display name on the card
@@ -176,13 +174,6 @@ public class MembersList extends AppCompatActivity {
             else{
                 Glide.with(MembersList.this).load(userProfilePicURL).into(holder.userProfilePicIV);
             }
-
-            //try{
-            //something with picasso to cache icon in the future.
-            //}
-            //catch (){
-            //more here
-            //}
 
             //when a member is clicked, show more detail and options (TO BE ADDED)
             holder.itemView.setOnClickListener(new View.OnClickListener(){
@@ -225,30 +216,5 @@ public class MembersList extends AppCompatActivity {
         }
 
     }
-    public class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
-        ImageView imgView;
-        Bitmap bmap;
-        public GetImageFromURL(ImageView imgV){
-            this.imgView = imgV;
-        }
-        @Override
-        protected Bitmap doInBackground(String... url){
-            String urldisplay = url[0];
-            bmap = null;
-            try{
-                InputStream srt = new java.net.URL(urldisplay).openStream();
-                bmap = BitmapFactory.decodeStream(srt);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            return bmap;
-        }
-        @Override
-        protected void onPostExecute(Bitmap bitmap){
-            super.onPostExecute(bitmap);
-            imgView.setImageBitmap(bitmap);
-        }
-    }
-
 }
 
