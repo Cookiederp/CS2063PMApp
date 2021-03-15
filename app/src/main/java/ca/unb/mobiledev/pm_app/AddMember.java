@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,8 +58,9 @@ public class AddMember extends AppCompatActivity {
         Intent trigger = getIntent();
         projID = trigger.getStringExtra("projectID");
         projName = trigger.getStringExtra("projectname");
+
         userIn = findViewById(R.id.search_user);
-        recyclerView = (RecyclerView)findViewById(R.id.rv_searchmembers);
+        recyclerView = findViewById(R.id.rv_searchmembers);
 
         userIn.addTextChangedListener(new TextWatcher() {
             @Override
@@ -151,7 +153,7 @@ public class AddMember extends AppCompatActivity {
             //To be added later - > String projectIcon = user.getIcon();
             String userFirstName = user.getFirstName();
             String userLastName = user.getLastName();
-            String userPic = user.getProfilePicURL();
+            String userProfilePicURL = user.getProfilePicURL();
 
             //display name on the card
             StringBuilder sb = new StringBuilder();
@@ -159,9 +161,15 @@ public class AddMember extends AppCompatActivity {
             sb.append(" ");
             sb.append(userLastName);
             holder.userNameTV.setText(sb);
-            new GetImageFromURL(holder.userIconImageView).execute(userPic);
 
-            //when a member is clicked, show more detail and options (TO BE ADDED)
+            if(userProfilePicURL.equals("default")){
+                holder.userProfilePicIV.setImageResource(R.mipmap.ic_launcher);
+            }
+            else{
+                Glide.with(AddMember.this).load(userProfilePicURL).into(holder.userProfilePicIV);
+            }
+
+
             holder.itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
@@ -180,14 +188,14 @@ public class AddMember extends AppCompatActivity {
 
         class MyHolder extends RecyclerView.ViewHolder{
 
-            private ImageView userIconImageView;
+            private ImageView userProfilePicIV;
             private TextView userNameTV;
 
 
             public MyHolder(@NonNull View itemView){
                 super(itemView);
 
-                userIconImageView = itemView.findViewById(R.id.icon_user);
+                userProfilePicIV = itemView.findViewById(R.id.icon_user);
                 userNameTV = itemView.findViewById(R.id.tv_addMemname);
             }
 
@@ -196,6 +204,8 @@ public class AddMember extends AppCompatActivity {
 
     }
 
+    //incase we might use it later
+/*
     public class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
         ImageView imgView;
         Bitmap bmap;
@@ -220,4 +230,6 @@ public class AddMember extends AppCompatActivity {
             imgView.setImageBitmap(bitmap);
         }
     }
+
+ */
 }

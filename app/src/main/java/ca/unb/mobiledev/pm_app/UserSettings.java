@@ -15,7 +15,6 @@ import android.provider.OpenableColumns;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,7 +33,6 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 
 import androidx.annotation.NonNull;
@@ -42,16 +40,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.exifinterface.media.ExifInterface;
 
-public class ProjectSettings extends AppCompatActivity {
+
+//Settings for a user's profile
+public class UserSettings extends AppCompatActivity {
 
 
-    private Button confirmNameButton;
     private Button changeIconButton;
-    private EditText projectNameEditText;
-    private ImageView projectIconIV;
+    private ImageView userIconIV;
 
-    private String projectId;
-    private String projectIconURL;
+    private String userId;
+    private String userIconURL;
 
     DatabaseReference reference;
     StorageReference storageReference;
@@ -63,51 +61,28 @@ public class ProjectSettings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_projectsettings);
+        setContentView(R.layout.activity_usersettings);
 
 
 
         Intent intent = getIntent();
-        projectId = intent.getStringExtra("projectId");
-        String projectName = intent.getStringExtra("projectName");
-        projectIconURL = intent.getStringExtra("projectIconURL");
+        userId = intent.getStringExtra("userId");
+        userIconURL = intent.getStringExtra("userIconURL");
 
-        confirmNameButton = findViewById(R.id.btn_confirmprojectname);
-        changeIconButton = findViewById(R.id.btn_changeprojecticon);
-        projectNameEditText = findViewById(R.id.et_changeprojectname);
-        projectIconIV = findViewById(R.id.icon_projectsettings);
+        changeIconButton = findViewById(R.id.btn_changeusericon);
+        userIconIV = findViewById(R.id.icon_user);
 
-        projectNameEditText.setText(projectName);
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
-        if(projectIconURL == null || projectIconURL.equals("default")){
-            projectIconIV.setImageResource(R.mipmap.ic_launcher);
+        if(userIconURL == null || userIconURL.equals("default")){
+            userIconIV.setImageResource(R.mipmap.ic_launcher);
         }
         else{
-            Glide.with(ProjectSettings.this).load(projectIconURL).into(projectIconIV);
+            Glide.with(UserSettings.this).load(userIconURL).into(userIconIV);
         }
 
 
-        confirmNameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reference = FirebaseDatabase.getInstance().getReference("Projects").child(projectId);
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("projectName", projectNameEditText.getText().toString());
-                reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(ProjectSettings.this, "Name Successfully Changed.", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(ProjectSettings.this, "Error Changing Name.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });
 
         changeIconButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +107,7 @@ public class ProjectSettings extends AppCompatActivity {
 
     private String getFileExtension(Uri uri){
 
-        ContentResolver contentResolver = ProjectSettings.this.getContentResolver();
+        ContentResolver contentResolver = UserSettings.this.getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
 
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
@@ -140,18 +115,18 @@ public class ProjectSettings extends AppCompatActivity {
     }
 
     private void UploadMyImage() throws IOException {
-        final ProgressDialog progressDialog = new ProgressDialog(ProjectSettings.this);
+        final ProgressDialog progressDialog = new ProgressDialog(UserSettings.this);
         progressDialog.setMessage("Uploading");
         progressDialog.show();
 
         if(imageUri != null){
-            final StorageReference fileReference = storageReference.child(projectId + "." + getFileExtension(imageUri));
+            final StorageReference fileReference = storageReference.child(userId + "." + getFileExtension(imageUri));
 
 
 
             //resize, rotating, compressing image before it is sent to firebase storage
-            Bitmap imageBitmap = decodeUri(ProjectSettings.this, imageUri, 256);
-            ExifInterface ei = new ExifInterface( getRealPathFromURI(ProjectSettings.this, imageUri));
+            Bitmap imageBitmap = decodeUri(UserSettings.this, imageUri, 256);
+            ExifInterface ei = new ExifInterface( getRealPathFromURI(UserSettings.this, imageUri));
             int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
             Bitmap rotatedBitmap = null;
             switch(orientation) {
@@ -174,7 +149,7 @@ public class ProjectSettings extends AppCompatActivity {
             }
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
             uploadTask = fileReference.putBytes(data);
             //end
@@ -195,31 +170,31 @@ public class ProjectSettings extends AppCompatActivity {
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
-                        reference = FirebaseDatabase.getInstance().getReference("Projects").child(projectId);
+                        reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
                         HashMap<String, Object> map = new HashMap<>();
 
-                        map.put("iconPicURL", mUri);
+                        map.put("profilePicURL", mUri);
                         reference.updateChildren(map);
 
                         progressDialog.dismiss();
 
-                        Glide.with(ProjectSettings.this).load(mUri).into(projectIconIV);
+                        Glide.with(UserSettings.this).load(mUri).into(userIconIV);
                     }
                     else{
-                        Toast.makeText(ProjectSettings.this, "Changes failed to save.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserSettings.this, "Changes failed to save.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ProjectSettings.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserSettings.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             });
         }
         else{
-            Toast.makeText(ProjectSettings.this, "No Image Selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserSettings.this, "No Image Selected", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -306,7 +281,7 @@ public class ProjectSettings extends AppCompatActivity {
             imageUri = data.getData();
 
             if(uploadTask != null && uploadTask.isInProgress()){
-                Toast.makeText(ProjectSettings.this, "Uploading...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserSettings.this, "Uploading...", Toast.LENGTH_SHORT).show();
             }
             else{
                 try {
@@ -317,5 +292,4 @@ public class ProjectSettings extends AppCompatActivity {
             }
         }
     }
-
 }
