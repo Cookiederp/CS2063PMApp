@@ -58,13 +58,14 @@ public class TasksList extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         tasksRef = FirebaseDatabase.getInstance().getReference("Tasks");
         getProjectsTaskList();
+
     }
 
 
     //from the project id get all tasks created for that project
     private void getProjectsTaskList(){
-        tasksList = new ArrayList<>();
 
+        tasksList = new ArrayList<>();
         tasksRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -126,6 +126,7 @@ public class TasksPage extends AppCompatActivity {
             String taskId = task.getId();
             String taskName = task.getTitle();
             String taskDesc = task.getDescription();
+            String taskDeadline = task.getDeadline();
             //To be added later - > String projectIcon = user.getIcon();
 
             //display name on the card
@@ -149,6 +150,7 @@ public class TasksPage extends AppCompatActivity {
                     intent.putExtra("taskId", taskId);
                     intent.putExtra("taskName", taskName);
                     intent.putExtra("taskDescription", taskDesc);
+                    intent.putExtra("taskDeadline", taskDeadline);
                     startActivity(intent);
                 }
 

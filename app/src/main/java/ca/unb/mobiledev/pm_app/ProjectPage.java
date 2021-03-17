@@ -19,6 +19,7 @@ public class ProjectPage extends AppCompatActivity {
     private TextView teamPage;
     private TextView tasks;
     private TextView chat;
+    private TextView projectNameTextView;
 
     private Button groupChatButton;
     private Button tasksButton;
@@ -31,7 +32,7 @@ public class ProjectPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projectpage);
 
-
+        projectNameTextView = findViewById((R.id.tv_projectname));
         groupChatButton = findViewById(R.id.btn_groupchat);
         tasksButton = findViewById(R.id.btn_tasks);
         membersButton = findViewById(R.id.btn_members);
@@ -42,7 +43,8 @@ public class ProjectPage extends AppCompatActivity {
         String projectId = intent.getStringExtra("projectId");
         String projectName = intent.getStringExtra("projectName");
         String projectIconURL = intent.getStringExtra("projectIconURL");
-        //projectNameTextView.setText(projectName);
+
+        projectNameTextView.setText(projectName);
 
         //not added yet
         groupChatButton.setOnClickListener(new View.OnClickListener() {
@@ -92,10 +94,3 @@ public class ProjectPage extends AppCompatActivity {
     }
 }
 
-//
-//       projectNameTextView = findViewById(R.id.tv_projectname);
-//
-//               Intent intent = getIntent();
-//               String projectId = intent.getStringExtra("projectId");
-//               String projectName = intent.getStringExtra("projectName");
-//               projectNameTextView.setText(projectName);
