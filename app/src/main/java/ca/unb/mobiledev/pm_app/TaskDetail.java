@@ -14,7 +14,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +31,8 @@ public class TaskDetail extends AppCompatActivity {
     private Button deleteTaskButton;
     private TextView taskNameText;
     private TextView taskDescriptionText;
+    private TextView taskDueTimeText;
+    private TextView taskDeadline;
 
     private String projectId;
     private String taskId;
@@ -43,6 +49,7 @@ public class TaskDetail extends AppCompatActivity {
 
         taskNameText = findViewById(R.id.tv_taskname);
         taskDescriptionText = findViewById(R.id.tv_taskdesc);
+        taskDeadline = findViewById(R.id.tv_taskduedate);
         deleteTaskButton = findViewById(R.id.btn_deletetask);
 
         //getting info from clicked task in previous activity
@@ -51,9 +58,13 @@ public class TaskDetail extends AppCompatActivity {
         taskId = intent.getStringExtra("taskId");
         String taskName = intent.getStringExtra("taskName");
         String taskDescription = intent.getStringExtra("taskDescription");
+        String taskDueDate = intent.getStringExtra("taskDueDate");
+        String timeToDue;
 
         taskNameText.setText(taskName);
         taskDescriptionText.setText(taskDescription);
+        taskDeadline.setText(taskDueDate);
+
 
         deleteTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +76,6 @@ public class TaskDetail extends AppCompatActivity {
 
 
     }
-
 
     private void deleteTask(){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Tasks").child(projectId).child(taskId);

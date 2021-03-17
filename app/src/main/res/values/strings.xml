@@ -15,5 +15,6 @@
     <string name="CreateTask">Create Task</string>
     <string name="Settings">Settings</string>
     <string name="TimeDue">Time Due</string>
+    <string name="DaysLeft">Days Left</string>
     <string name="DueDate">Due Date</string>
 </resources>

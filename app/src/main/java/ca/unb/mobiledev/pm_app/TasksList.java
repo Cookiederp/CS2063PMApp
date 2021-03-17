@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,6 @@ public class TasksList extends AppCompatActivity {
     //private ArrayList<Projects> projectsList;
     //project specific data
     private ArrayList<Tasks> tasksList;
-    private ArrayList<Users> teamMembers;
 
     //empty constructor
     public TasksList(){
@@ -78,7 +78,7 @@ public class TasksList extends AppCompatActivity {
                     }
                 }
 
-                Log.d("123123", "onDataChange: " + tasksList.size());
+                //Log.d("123123", "onDataChange: " + tasksList.size());
                 adapterProjectList = new AdapterProjectList(tasksList);
                 tasksRecyclerView.setAdapter(adapterProjectList);
             }
@@ -115,15 +115,17 @@ public class TasksList extends AppCompatActivity {
             //can get any data from a project here
             String taskId = task.getId();
             String taskName = task.getTitle();
+            String taskDueDate = task.getDeadline();
 
             holder.taskTitleText.setText(taskName);
 
             holder.itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    Intent intent = new Intent(TasksList.this, TaskPage.class);
+                    Intent intent = new Intent(TasksList.this, TasksPage.class);
                     intent.putExtra("taskId", taskId);
                     intent.putExtra("taskName", taskName);
+                    intent.putExtra("taskDueDate", taskDueDate);
                     startActivity(intent);
                     finish();
                 }
