@@ -3,15 +3,12 @@ package ca.unb.mobiledev.pm_app;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +21,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-import ca.unb.mobiledev.pm_app.Model.Projects;
+
 import ca.unb.mobiledev.pm_app.Model.Tasks;
 
 public class TasksPage extends AppCompatActivity {
@@ -170,7 +167,7 @@ public class TasksPage extends AppCompatActivity {
 
             public MyHolder(@NonNull View itemView){
                 super(itemView);
-                taskNameTextView = itemView.findViewById(R.id.tv_name);
+                taskNameTextView = itemView.findViewById(R.id.tv_tasktitle);
             }
 
 

@@ -12,4 +12,8 @@
     <string name="ProfilePicture">Profile Picture</string>
     <string name="SearchUser">Search For User</string>
     <string name="enterUser">Enter User to Search for</string>
+    <string name="CreateTask">Create Task</string>
+    <string name="Settings">Settings</string>
+    <string name="TimeDue">Time Due</string>
+    <string name="DueDate">Due Date</string>
 </resources>

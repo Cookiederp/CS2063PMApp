@@ -11,11 +11,15 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="471dp"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_changeprojecticon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/et_changeprojectname" />
 
     <EditText
         android:id="@+id/et_changeprojectname"
@@ -25,6 +29,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        android:textColor="@color/banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,23 +39,33 @@
         android:id="@+id/btn_changeprojecticon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="188dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="495dp"
+        android:backgroundTint="@color/light_green"
         android:text="Change Icon"
+        android:textColor="@color/banner"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/icon_projectsettings"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/et_changeprojectname" />
 
     <Button
         android:id="@+id/btn_confirmprojectname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="80dp"
         android:text="Confirm"
+        android:textColor="@color/banner"
+        android:backgroundTint="@color/bright_green"
+        app:layout_constraintBottom_toTopOf="@+id/btn_changeprojecticon"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/et_changeprojectname"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

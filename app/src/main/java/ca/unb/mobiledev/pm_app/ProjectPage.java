@@ -42,7 +42,7 @@ public class ProjectPage extends AppCompatActivity {
         String projectId = intent.getStringExtra("projectId");
         String projectName = intent.getStringExtra("projectName");
         String projectIconURL = intent.getStringExtra("projectIconURL");
-        projectNameTextView.setText(projectName);
+        //projectNameTextView.setText(projectName);
 
         //not added yet
         groupChatButton.setOnClickListener(new View.OnClickListener() {

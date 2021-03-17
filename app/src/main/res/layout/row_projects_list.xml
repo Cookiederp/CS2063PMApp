@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="#d9dbbc"
+    app:cardBackgroundColor="#B8D8BA"
     app:contentPadding="3dp"
     android:layout_marginTop="1dp">
 
@@ -27,7 +27,7 @@
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@id/icon_project"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/banner"
             />
 
     </RelativeLayout>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/cardview_dark_background"
+    app:cardBackgroundColor="#D9DBBC"
     app:contentPadding="3dp"
     android:layout_marginTop="1dp">
 
@@ -18,7 +18,7 @@
             app:civ_border_color="#FF000000"/>
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_tasktitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -26,8 +26,7 @@
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@id/icon_user"
             android:textSize="20sp"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/banner"/>
 
         <TextView
             android:id="@+id/tv_role"
@@ -36,8 +35,8 @@
             android:layout_marginStart="106dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_below="@id/tv_name"
-            android:textColor="@color/black"
+            android:layout_below="@id/tv_tasktitle"
+            android:textColor="@color/banner"
             android:textSize="16sp" />
 
     </RelativeLayout>

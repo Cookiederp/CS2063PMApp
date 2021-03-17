@@ -11,7 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
-        android:text="create task"
+        android:backgroundTint="#EF959D"
+        android:text="@string/CreateTask"
+        android:textColor="@color/banner"
+        app:iconTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
