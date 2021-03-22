@@ -74,7 +74,6 @@ public class ProjectsList extends AppCompatActivity {
                     }
                 }
 
-                Log.d("123123", "onDataChange: " + projectsList.size());
                 adapterProjectList = new AdapterProjectList(projectsList);
                 projectsRecyclerView.setAdapter(adapterProjectList);
             }
