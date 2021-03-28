@@ -8,6 +8,7 @@
     <string name="LastName">Last Name</string>
     <string name="CreateAccount">Create Account</string>
     <string name="FirstName">First Name</string>
+<<<<<<< Updated upstream
     <string name="AddMember">Add Member</string>
     <string name="ProfilePicture">Profile Picture</string>
     <string name="SearchUser">Search For User</string>
@@ -17,4 +18,11 @@
     <string name="TimeDue">Time Due</string>
     <string name="DaysLeft">Days Left</string>
     <string name="DueDate">Due Date</string>
+=======
+    <string name="TeamMembers">Team Members</string>
+    <string name="Tasks">Tasks</string>
+    <string name="Projects">Projects</string>
+    <string name="CreateProject">Create Project</string>
+    <string name="Logout">Logout</string>
+>>>>>>> Stashed changes
 </resources>
