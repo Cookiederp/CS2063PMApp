@@ -45,11 +45,10 @@ public class ProjectPage extends AppCompatActivity {
         groupChatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProjectPage.this, ProjectPage.class);
+                Intent intent = new Intent(ProjectPage.this, GroupchatPage.class);
                 intent.putExtra("projectId", projectId);
                 intent.putExtra("projectName", projectName);
                 startActivity(intent);
-                finish();
             }
         });
 
