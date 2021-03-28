@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="380dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="8dp"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/tv_nameofsender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:paddingBottom="0dp"
+        android:layout_marginStart="38dp"
+        android:text="gdfgdfg"
+        android:maxLength="38"
+        android:textColor="#E3E3E3"
+        android:textSize="14sp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="22dp"
+        android:src="@mipmap/ic_launcher"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="1dp" />
+
+    <TextView
+        android:id="@+id/show_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/profile_image"
+        android:background="@drawable/background_left"
+        android:maxWidth="250dp"
+        android:padding="6dp"
+        android:layout_marginTop="22dp"
+        android:text="tesddsfdsfsdfsdfsdfdsfsdfdfsdfsd123"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_timesent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="44dp"
+        android:layout_toEndOf="@+id/show_message"
+        android:text="8:30 a.m."
+        android:textColor="#A8A8A8"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/tv_daysent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="22dp"
+        android:layout_toEndOf="@+id/show_message"
+        android:text="22/3/2021"
+        android:textColor="#A8A8A8"
+        android:textSize="10sp" />
+
+
+</RelativeLayout>
