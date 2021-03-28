@@ -59,7 +59,7 @@ public class TaskDetail extends AppCompatActivity {
         String taskName = intent.getStringExtra("taskName");
         String taskDescription = intent.getStringExtra("taskDescription");
         String taskDueDate = intent.getStringExtra("taskDueDate");
-        String timeToDue;
+        //String timeToDue;
 
         taskNameText.setText(taskName);
         taskDescriptionText.setText(taskDescription);
