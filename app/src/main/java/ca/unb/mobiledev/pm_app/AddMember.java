@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class AddMember extends AppCompatActivity {
     DatabaseReference userRef;
 
     private ArrayList<Users> userList;
+    private ArrayList<String> members;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class AddMember extends AppCompatActivity {
         userIn = findViewById(R.id.search_user);
         recyclerView = (RecyclerView)findViewById(R.id.rv_searchmembers);
 
+        getUsersInProject();
         userIn.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -68,7 +71,8 @@ public class AddMember extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SearchUsers(s.toString());
+                SearchUsers(userIn.getText().toString());
+                Log.e("Search", "text = " + userIn.getText().toString());
             }
 
             @Override
@@ -111,8 +115,9 @@ public class AddMember extends AppCompatActivity {
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Users user = child.getValue(Users.class);
+                    Log.e("User", "User name = " + user.getId());
 
-                    if (!user.getId().equals(dbUser.getUid())) {
+                    if (!user.getId().equals(dbUser.getUid()) && !(members.contains(user.getId()))) {
                         userList.add(user);
                     }
                 }
@@ -166,6 +171,7 @@ public class AddMember extends AppCompatActivity {
                 @Override
                 public void onClick(View v){
                     PushMember(userId, projID);
+                    getUsersInProject();
                 }
 
             });
@@ -219,5 +225,41 @@ public class AddMember extends AppCompatActivity {
             super.onPostExecute(bitmap);
             imgView.setImageBitmap(bitmap);
         }
+    }
+    private void getUsersInProject(){
+        members = new ArrayList<String>();
+        DatabaseReference projRef = FirebaseDatabase.getInstance().getReference("Projects").child(projID).child("Members");
+        DatabaseReference user = FirebaseDatabase.getInstance().getReference("Users");
+
+        projRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                members.clear();
+
+
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    String userId = child.getKey();
+
+                    user.child(userId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Users user = snapshot.getValue(Users.class);
+                            members.add(user.getId());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

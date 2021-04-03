@@ -6,13 +6,19 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.InputStream;
@@ -21,6 +27,8 @@ public class MemberPage extends AppCompatActivity {
     private TextView nameTV;
     private TextView roleTV;
     private ImageView img;
+    private Button rmb;
+    String projectID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,11 +39,20 @@ public class MemberPage extends AppCompatActivity {
         String userFName = intent.getStringExtra("firstName");
         String userLName = intent.getStringExtra("lastName");
         String userRole = intent.getStringExtra("userRole");
+        String userId = intent.getStringExtra("userID");
         String picURL = intent.getStringExtra("userPicture");
+        projectID = intent.getStringExtra("projID");
 
         nameTV = findViewById(R.id.userName_tv);
         roleTV = findViewById(R.id.userRole_tv);
         img = (ImageView)findViewById(R.id.profilePicture);
+        rmb = findViewById(R.id.removeMemberBtn);
+        rmb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeMember(userId, projectID);
+            }
+        });
 
         nameTV.setText(userFName + " " + userLName);
         roleTV.setText(userRole);
@@ -64,5 +81,19 @@ public class MemberPage extends AppCompatActivity {
             super.onPostExecute(bitmap);
             imgView.setImageBitmap(bitmap);
         }
+    }
+    private void removeMember(String userId, String projectID){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Projects").child(projectID).child("Members");
+        ref.child(userId).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Toast.makeText(MemberPage.this,"User Removed", Toast.LENGTH_LONG).show();
+                Intent ret = new Intent();
+                ret.putExtra("removed", true);
+                setResult(1,ret);
+                MemberPage.this.finish();
+            }
+        });
+
     }
 }

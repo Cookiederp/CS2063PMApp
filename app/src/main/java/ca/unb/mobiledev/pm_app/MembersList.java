@@ -14,6 +14,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,16 +26,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import ca.unb.mobiledev.pm_app.Model.Users;
+
+import static com.google.firebase.database.Transaction.success;
 
 public class MembersList extends AppCompatActivity {
 
@@ -42,6 +47,7 @@ public class MembersList extends AppCompatActivity {
     private FirebaseAuth auth;
     DatabaseReference myRef;
     DatabaseReference userRef;
+    String projID;
 
     private ArrayList<Users> membersList;
     private Button addMembersBtn;
@@ -57,7 +63,7 @@ public class MembersList extends AppCompatActivity {
         setContentView(R.layout.activity_memberslist);
 
         Intent intent = getIntent();
-        String projectId = intent.getStringExtra("projectId");
+        projID = intent.getStringExtra("projectId");
         String projectName = intent.getStringExtra("projectName");
 
         //View view = inflater.inflate(R.layout.fragment_projects, container, false);
@@ -65,21 +71,23 @@ public class MembersList extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rv_members);
 
         auth = FirebaseAuth.getInstance();
-        myRef = FirebaseDatabase.getInstance().getReference("Projects").child(projectId).child("Members");
+        myRef = FirebaseDatabase.getInstance().getReference("Projects").child(projID).child("Members");
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         getUsersInProject();
-        FirebaseUser dbUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userRole = "default";
 
+        Log.e("rolePrint", userRole);
         addMembersBtn = findViewById(R.id.addmember_button);
         addMembersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MembersList.this, AddMember.class);
-                intent.putExtra("projectID", projectId);
+                intent.putExtra("projectID", projID);
                 intent.putExtra("projectname", projectName);
                 startActivity(intent);
             }
         });
+
     }
 
 
@@ -192,8 +200,10 @@ public class MembersList extends AppCompatActivity {
                     intent.putExtra("firstName", userFirstName);
                     intent.putExtra("lastName", userLastName);
                     intent.putExtra("userRole", userRole);
+                    intent.putExtra("userID", userId);
                     intent.putExtra("userPicture", user.getProfilePicURL());
-                    startActivity(intent);
+                    intent.putExtra("projID", projID);
+                    startActivityForResult(intent, 1);
                 }
 
             });
@@ -250,5 +260,17 @@ public class MembersList extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            this.recreate();
+        }
+    }
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        recreate();
+    }
 }
 
