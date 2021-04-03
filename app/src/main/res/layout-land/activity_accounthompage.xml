@@ -17,7 +17,7 @@
             android:text="logout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintHorizontal_bias="0.515"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_usettings" />
 
@@ -28,7 +28,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/pink"
             android:text="Create Project"
             android:textColor="@color/banner"
@@ -42,7 +42,7 @@
             android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="200dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/bright_green"
@@ -58,13 +58,13 @@
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:text="settings"
             app:layout_constraintBottom_toTopOf="@+id/btn_logout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintHorizontal_bias="0.515"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_createproj" />
 
