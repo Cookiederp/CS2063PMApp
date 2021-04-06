@@ -1,5 +1,7 @@
 package ca.unb.mobiledev.pm_app.Model;
 
+import java.util.Date;
+
 public class Tasks {
 
     private String Id;
@@ -52,11 +54,15 @@ public class Tasks {
         this.description = description;
     }
 
+    //public String getDeadline() { return deadline; }
+
+    //public void setDeadline(String deadline) { this.deadline = deadline; }
+
     public long getDeadline() {
         return deadline;
     }
 
     public void setDeadline(long deadline) {
         this.deadline = deadline;
+
     }
-}

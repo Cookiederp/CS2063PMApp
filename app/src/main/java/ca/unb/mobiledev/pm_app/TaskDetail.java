@@ -21,9 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import java.util.GregorianCalendar;
 import java.util.Locale;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,7 +35,11 @@ public class TaskDetail extends AppCompatActivity {
     private Button deleteTaskButton;
     private TextView taskNameText;
     private TextView taskDescriptionText;
+//     private TextView taskDueTimeText;
+//     private TextView taskDeadline;
+
     private TextView taskDeadlineText;
+
 
     private String projectId;
     private String taskId;
@@ -52,6 +56,7 @@ public class TaskDetail extends AppCompatActivity {
 
         taskNameText = findViewById(R.id.tv_taskname);
         taskDescriptionText = findViewById(R.id.tv_taskdesc);
+        taskDeadline = findViewById(R.id.tv_taskduedate);
         deleteTaskButton = findViewById(R.id.btn_deletetask);
         taskDeadlineText = findViewById(R.id.tv_deadline);
 
@@ -62,6 +67,10 @@ public class TaskDetail extends AppCompatActivity {
         taskId = intent.getStringExtra("taskId");
         String taskName = intent.getStringExtra("taskName");
         String taskDescription = intent.getStringExtra("taskDescription");
+        //String taskDueDate = intent.getStringExtra("taskDueDate");
+        //String timeToDue;
+
+
         long taskDeadline = intent.getLongExtra("taskDeadline", 0);
 
 
@@ -88,6 +97,8 @@ public class TaskDetail extends AppCompatActivity {
         //ServerValue.TIMESTAMP
         taskNameText.setText(taskName);
         taskDescriptionText.setText(taskDescription);
+        taskDeadline.setText(taskDueDate);
+
 
         deleteTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +110,6 @@ public class TaskDetail extends AppCompatActivity {
 
 
     }
-
 
     private void deleteTask(){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Tasks").child(projectId).child(taskId);

@@ -9,10 +9,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_members"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:scrollbars="vertical"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:layout_editor_absoluteX="203dp"
         tools:layout_editor_absoluteY="256dp"
         tools:listitem="@layout/row_members_list" />

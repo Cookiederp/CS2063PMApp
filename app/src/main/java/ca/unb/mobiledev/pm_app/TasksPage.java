@@ -3,15 +3,12 @@ package ca.unb.mobiledev.pm_app;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +25,7 @@ import java.util.Date;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-import ca.unb.mobiledev.pm_app.Model.Projects;
+
 import ca.unb.mobiledev.pm_app.Model.Tasks;
 
 public class TasksPage extends AppCompatActivity {
@@ -137,6 +134,10 @@ public class TasksPage extends AppCompatActivity {
             String taskId = task.getId();
             String taskName = task.getTitle();
             String taskDesc = task.getDescription();
+
+            //String taskDeadline = task.getDeadline();
+            //To be added later - > String projectIcon = user.getIcon();
+
             long taskDeadline = task.getDeadline();
 
             Date deadlineDate = new Date(taskDeadline);
@@ -144,6 +145,7 @@ public class TasksPage extends AppCompatActivity {
 
             long difference_In_Time = deadlineDate.getTime() - currentDate.getTime();
             long difference_In_Days = ((difference_In_Time / (1000 * 60 * 60 * 24)));
+
 
             //display name on the card
             holder.taskNameTextView.setText(taskName);
@@ -190,6 +192,9 @@ public class TasksPage extends AppCompatActivity {
 
             public MyHolder(@NonNull View itemView){
                 super(itemView);
+
+                //taskNameTextView = itemView.findViewById(R.id.tv_tasktitle);
+
                 taskNameTextView = itemView.findViewById(R.id.tv_name);
                 taskDaysLeftTV = itemView.findViewById(R.id.tv_days);
             }

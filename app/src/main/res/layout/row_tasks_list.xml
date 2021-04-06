@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/cardview_dark_background"
+    app:cardBackgroundColor="#D9DBBC"
     app:contentPadding="3dp"
     android:layout_marginTop="1dp">
 
@@ -12,13 +12,18 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_tasktitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="26dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
+<!-- <<<<<<< sue
+            android:textSize="20sp"
+            android:textColor="@color/banner"
+            />
+======= -->
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -29,6 +34,7 @@
             android:layout_marginStart="6dp"
             android:layout_marginTop="6dp"
             android:text="Days left:" />
+<!-- >>>>>>> devolpment -->
 
     </RelativeLayout>
 
