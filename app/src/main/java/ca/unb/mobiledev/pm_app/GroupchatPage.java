@@ -106,7 +106,7 @@ public class GroupchatPage extends AppCompatActivity {
     }
 
     private void sendMessage(String sender, String message, String imageURL, String senderName){
-        reference = FirebaseDatabase.getInstance().getReference("Groupchats");
+        reference = FirebaseDatabase.getInstance().getReference("Groupchats").child(projectId).push();
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
@@ -115,8 +115,9 @@ public class GroupchatPage extends AppCompatActivity {
         hashMap.put("projectId", projectId);
         hashMap.put("senderName",senderName);
         hashMap.put("timestamp", ServerValue.TIMESTAMP);
+        hashMap.put("messageId", reference.getKey());
 
-        reference.child(projectId).push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
