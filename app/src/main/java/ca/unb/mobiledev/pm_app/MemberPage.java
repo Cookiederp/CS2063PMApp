@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,7 @@ public class MemberPage extends AppCompatActivity {
     private ImageView img;
     private Button rmb;
     String projectID;
+    private ImageView userProfilePicIV;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,11 +55,28 @@ public class MemberPage extends AppCompatActivity {
                 removeMember(userId, projectID);
             }
         });
+      
+        String userProfilePicURL = intent.getStringExtra("userPicture");
+
+        nameTV = findViewById(R.id.userName_tv);
+        roleTV = findViewById(R.id.userRole_tv);
+        userProfilePicIV = findViewById(R.id.profilePicture);
 
         nameTV.setText(userFName + " " + userLName);
         roleTV.setText(userRole);
-        new GetImageFromURL(img).execute(picURL);
+
+        //might use later
+        //new GetImageFromURL(img).execute(picURL);
+
+        if(userProfilePicURL.equals("default")){
+            userProfilePicIV.setImageResource(R.mipmap.ic_launcher);
+        }
+        else{
+            Glide.with(MemberPage.this).load(userProfilePicURL).into(userProfilePicIV);
+        }
     }
+    //might use later
+    /*
     public class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
         ImageView imgView;
         Bitmap bmap;
@@ -96,4 +115,5 @@ public class MemberPage extends AppCompatActivity {
         });
 
     }
+
 }

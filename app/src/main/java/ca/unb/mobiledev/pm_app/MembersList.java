@@ -2,11 +2,7 @@ package ca.unb.mobiledev.pm_app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +26,6 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import ca.unb.mobiledev.pm_app.Model.Users;
@@ -160,9 +155,7 @@ public class MembersList extends AppCompatActivity {
             String userFirstName = user.getFirstName();
             String userLastName = user.getLastName();
             String userRole = user.getRole();
-          // alex
-            String userPic = user.getProfilePicURL();
-          // dev
+
             String userProfilePicURL = user.getProfilePicURL();
 
             //display name on the card
@@ -184,13 +177,6 @@ public class MembersList extends AppCompatActivity {
             else{
                 Glide.with(MembersList.this).load(userProfilePicURL).into(holder.userProfilePicIV);
             }
-
-            //try{
-            //something with picasso to cache icon in the future.
-            //}
-            //catch (){
-            //more here
-            //}
 
             //when a member is clicked, show more detail and options (TO BE ADDED)
             holder.itemView.setOnClickListener(new View.OnClickListener(){
@@ -225,7 +211,7 @@ public class MembersList extends AppCompatActivity {
                 super(itemView);
 
 
-                userNameTV = itemView.findViewById(R.id.tv_name);
+                userNameTV = itemView.findViewById(R.id.tv_tasktitle);
                 userRoleTV = itemView.findViewById(R.id.tv_role);
                 userProfilePicIV = itemView.findViewById(R.id.icon_user);
 
@@ -272,5 +258,6 @@ public class MembersList extends AppCompatActivity {
         super.onRestart();
         recreate();
     }
+
 }
 

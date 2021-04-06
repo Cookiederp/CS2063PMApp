@@ -33,7 +33,10 @@
         <activity android:name=".TasksPage"/>
         <activity android:name=".CreateTask"/>
         <activity android:name=".TaskDetail"/>
-        <activity android:name="ProjectSettings"/>
+        <activity android:name=".ProjectSettings"/>
+        <activity android:name=".UserSettings"/>
+        <activity android:name=".GroupchatPage"/>
+        <activity android:name=".MessageDetail"/>
     </application>
 
 </manifest>

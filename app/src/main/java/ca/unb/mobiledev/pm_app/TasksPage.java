@@ -3,28 +3,29 @@ package ca.unb.mobiledev.pm_app;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-import ca.unb.mobiledev.pm_app.Model.Projects;
+
 import ca.unb.mobiledev.pm_app.Model.Tasks;
 
 public class TasksPage extends AppCompatActivity {
@@ -40,6 +41,8 @@ public class TasksPage extends AppCompatActivity {
     DatabaseReference myRef;
     DatabaseReference userRef;
 
+    private long serverTime;
+
     private ArrayList<Tasks> tasksList;
 
     public TasksPage(){
@@ -51,6 +54,8 @@ public class TasksPage extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taskspage);
+
+
 
         Intent intent = getIntent();
         projectId = intent.getStringExtra("projectId");
@@ -82,7 +87,7 @@ public class TasksPage extends AppCompatActivity {
     private void getTasksInProject(){
         tasksList = new ArrayList<>();
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild("deadline").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 tasksList.clear();
@@ -129,19 +134,34 @@ public class TasksPage extends AppCompatActivity {
             String taskId = task.getId();
             String taskName = task.getTitle();
             String taskDesc = task.getDescription();
+
+            //String taskDeadline = task.getDeadline();
             //To be added later - > String projectIcon = user.getIcon();
+
+            long taskDeadline = task.getDeadline();
+
+            Date deadlineDate = new Date(taskDeadline);
+            Date currentDate = new Date();
+
+            long difference_In_Time = deadlineDate.getTime() - currentDate.getTime();
+            long difference_In_Days = ((difference_In_Time / (1000 * 60 * 60 * 24)));
+
 
             //display name on the card
             holder.taskNameTextView.setText(taskName);
 
-            //display user role on the card
+            if(difference_In_Days > 0){
+                holder.taskDaysLeftTV.setText(difference_In_Days + " days left");
+            }
+            else if(difference_In_Days == 0){
+                holder.taskDaysLeftTV.setText("less than a day left");
+            }
+            else{
+                difference_In_Days *= -1;
+                holder.taskDaysLeftTV.setText(difference_In_Days + " days late");
+            }
 
-            //try{
-            //something with picasso to cache icon in the future.
-            //}
-            //catch (){
-            //more here
-            //}
+
 
             //when a member is clicked, show more detail and options (TO BE ADDED)
             holder.itemView.setOnClickListener(new View.OnClickListener(){
@@ -152,6 +172,7 @@ public class TasksPage extends AppCompatActivity {
                     intent.putExtra("taskId", taskId);
                     intent.putExtra("taskName", taskName);
                     intent.putExtra("taskDescription", taskDesc);
+                    intent.putExtra("taskDeadline", taskDeadline);
                     startActivity(intent);
                 }
 
@@ -167,10 +188,15 @@ public class TasksPage extends AppCompatActivity {
         class MyHolder extends RecyclerView.ViewHolder{
 
             private TextView taskNameTextView;
+            private TextView taskDaysLeftTV;
 
             public MyHolder(@NonNull View itemView){
                 super(itemView);
+
+                //taskNameTextView = itemView.findViewById(R.id.tv_tasktitle);
+
                 taskNameTextView = itemView.findViewById(R.id.tv_name);
+                taskDaysLeftTV = itemView.findViewById(R.id.tv_days);
             }
 
 
