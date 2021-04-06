@@ -10,17 +10,27 @@
         android:id="@+id/et_taskname"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+//<<<<<<< sue
         android:layout_marginStart="10dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
+//=======
+        android:layout_marginTop="60dp"
+//>>>>>>> devolpment
         android:ems="10"
+        android:hint="Title"
         android:inputType="textPersonName"
+//<<<<<<< sue
         android:text="Title"
         android:textColor="@color/banner"
         app:layout_constraintBottom_toTopOf="@+id/et_taskdesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
+//=======
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+//>>>>>>> devolpment
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,15 +44,20 @@
         android:layout_marginBottom="20dp"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="Description"
         android:inputType="textMultiLine"
         android:textColor="@color/banner"
         app:layout_constraintBottom_toTopOf="@+id/editTextTime"
         app:layout_constraintEnd_toEndOf="parent"
+//<<<<<<< sue
         app:layout_constraintHorizontal_bias="0.502"
+=======
+        app:layout_constraintHorizontal_bias="0.149"
+//>>>>>>> devolpment
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_taskname"
-        tools:text="Description" />
+        app:layout_constraintTop_toBottomOf="@+id/et_taskname" />
 
+//<<<<<<< sue
     <EditText
         android:id="@+id/editTextTime"
         android:layout_width="200dp"
@@ -76,9 +91,32 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_createtask2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+//=======
+    <Button
+        android:id="@+id/btn_createtask2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="Create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_createtask2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+//>>>>>>> devolpment
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_taskdesc"
+        app:layout_constraintVertical_bias="0.913" />
+
+//<<<<<<< sue
     <Button
         android:id="@+id/btn_createtask2"
         android:layout_width="125dp"
@@ -96,4 +134,17 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextDate"
         app:layout_constraintVertical_bias="0.922" />
 
+//=======
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:text="Deadline"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_taskdesc"
+        app:layout_constraintVertical_bias="1.0" />
+//>>>>>>> devolpment
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package ca.unb.mobiledev.pm_app.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.timepicker.TimeFormat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.w3c.dom.Text;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -22,9 +25,13 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import ca.unb.mobiledev.pm_app.CreateTask;
+import ca.unb.mobiledev.pm_app.GroupchatPage;
+import ca.unb.mobiledev.pm_app.MessageDetail;
 import ca.unb.mobiledev.pm_app.Model.Chat;
 
 import ca.unb.mobiledev.pm_app.R;
+import ca.unb.mobiledev.pm_app.TasksPage;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyHolder> {
 
@@ -70,6 +77,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyHolder
         }
 
         Date d = new Date(chat.getTimestamp());
+        assert d != null;
+        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context.getApplicationContext());
+        DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context.getApplicationContext());
+/*
+        Date d = new Date(chat.getTimestamp());
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(d);
         StringBuilder dayString = new StringBuilder();
@@ -86,12 +98,36 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyHolder
         else{
             timeString.append("a.m.");
         }
+*/
+        //********* MIGHT WANT TO RECONSIDER ADDING LATER
+        //holder.day_sent.setText(dateFormat.format(d));
+        //holder.time_sent.setText(timeFormat.format(d));
+        ////
+        holder.day_sent.setVisibility(View.INVISIBLE);
+        holder.time_sent.setVisibility(View.INVISIBLE);
 
-        holder.day_sent.setText(dayString);
-        holder.time_sent.setText(timeString);
+
         if(holder.name_of_sender != null){
             holder.name_of_sender.setText(chat.getSenderName());
         }
+
+
+        holder.show_message.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intent = new Intent(context, MessageDetail.class);
+                intent.putExtra("senderId", chat.getSender());
+                intent.putExtra("timeSent", timeFormat.format(d));
+                intent.putExtra("daySent", dateFormat.format(d));
+                intent.putExtra("projectId", chat.getProjectId());
+                intent.putExtra("messageId", chat.getMessageId());
+                intent.putExtra("message", chat.getMessage());
+                intent.putExtra("sender", chat.getSenderName());
+                context.startActivity(intent);
+                return false;
+            }
+        });
+
     }
 
     @Override

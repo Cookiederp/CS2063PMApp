@@ -8,17 +8,27 @@ public class Chat {
     private Long timestamp;
     private String imageURL;
     private String senderName;
+    private String messageId;
 
     public Chat() {
     }
 
-    public Chat(String sender, String projectId, String message, Long timestamp, String imageURL, String senderName) {
+    public Chat(String sender, String projectId, String message, Long timestamp, String imageURL, String senderName, String messageId) {
         this.sender = sender;
         this.projectId = projectId;
         this.message = message;
         this.timestamp = timestamp;
         this.imageURL = imageURL;
         this.senderName = senderName;
+        this.messageId = messageId;
+    }
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
     }
 
     public String getSenderName() {

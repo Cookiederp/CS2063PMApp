@@ -8,13 +8,13 @@ public class Tasks {
     private String projectId;
     private String title;
     private String description;
-    private String deadline;
+    private long deadline;
 
 
     public Tasks(){
     }
 
-    public Tasks(String id, String projectId, String title, String description, String deadline) {
+    public Tasks(String id, String projectId, String title, String description, long deadline) {
         this.Id = id;
         this.projectId = projectId;
         this.title = title;
@@ -54,7 +54,15 @@ public class Tasks {
         this.description = description;
     }
 
-    public String getDeadline() { return deadline; }
+    //public String getDeadline() { return deadline; }
 
-    public void setDeadline(String deadline) { this.deadline = deadline; }
+    //public void setDeadline(String deadline) { this.deadline = deadline; }
+
+    public long getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(long deadline) {
+        this.deadline = deadline;
+
     }
