@@ -29,7 +29,7 @@ public class MessageDetail extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messagedetail);
-
+        getSupportActionBar().setTitle("Message Detail");
         timeSentText = findViewById(R.id.tv_timesentdetail);
         daySentText = findViewById(R.id.tv_daysentdetail);
         senderAndMessageText = findViewById(R.id.tv_senderandmessage);

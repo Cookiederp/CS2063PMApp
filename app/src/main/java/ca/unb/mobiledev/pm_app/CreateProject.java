@@ -54,7 +54,7 @@ public class CreateProject extends AppCompatActivity {
         firebaseUser = auth.getCurrentUser();
         //removes the need to call .getUid later
         firebaseUserId = firebaseUser.getUid();
-
+        getSupportActionBar().setTitle("Create Project");
         //listeners for each layout element
         createProjectBtn.setOnClickListener(new View.OnClickListener() {
             @Override

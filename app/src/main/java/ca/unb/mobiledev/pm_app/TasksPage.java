@@ -54,7 +54,7 @@ public class TasksPage extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taskspage);
-
+        getSupportActionBar().setTitle("Tasks");
 
 
         Intent intent = getIntent();
@@ -193,12 +193,11 @@ public class TasksPage extends AppCompatActivity {
             public MyHolder(@NonNull View itemView){
                 super(itemView);
 
-                //taskNameTextView = itemView.findViewById(R.id.tv_tasktitle);
+                taskNameTextView = itemView.findViewById(R.id.tv_tasktitle);
 
-                taskNameTextView = itemView.findViewById(R.id.tv_name);
+                //taskNameTextView = itemView.findViewById(R.id.tv_name);
                 taskDaysLeftTV = itemView.findViewById(R.id.tv_days);
             }
-
 
         }
 

@@ -25,4 +25,6 @@
     <string name="Name">Name</string>
     <string name="ChangeIcon">Change Icon</string>
     <string name="Confirm">Confirm</string>
+    <string name="TaskName">Task Name</string>
+    <string name="DateFormat">MM/DD/YYYY</string>
 </resources>

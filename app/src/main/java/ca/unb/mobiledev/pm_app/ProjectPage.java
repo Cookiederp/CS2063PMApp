@@ -31,7 +31,7 @@ public class ProjectPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projectpage);
-
+        getSupportActionBar().setTitle("Project Home");
         projectNameTextView = findViewById((R.id.tv_projectname));
         groupChatButton = findViewById(R.id.btn_groupchat);
         tasksButton = findViewById(R.id.btn_tasks);

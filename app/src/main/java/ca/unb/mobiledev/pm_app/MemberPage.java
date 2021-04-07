@@ -27,7 +27,7 @@ public class MemberPage extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memberpage);
-
+        getSupportActionBar().setTitle("Members");
         Intent intent = getIntent();
         String userFName = intent.getStringExtra("firstName");
         String userLName = intent.getStringExtra("lastName");

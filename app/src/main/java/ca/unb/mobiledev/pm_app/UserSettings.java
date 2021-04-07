@@ -62,7 +62,7 @@ public class UserSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usersettings);
-
+        getSupportActionBar().setTitle("User Settings");
 
 
         Intent intent = getIntent();

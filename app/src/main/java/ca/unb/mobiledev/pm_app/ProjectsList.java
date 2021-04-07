@@ -46,7 +46,7 @@ public class ProjectsList extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projectslist);
-
+        getSupportActionBar().setTitle("Projects");
         //View view = inflater.inflate(R.layout.fragment_projects, container, false);
 
         projectsRecyclerView = (RecyclerView) findViewById(R.id.rv_projects);

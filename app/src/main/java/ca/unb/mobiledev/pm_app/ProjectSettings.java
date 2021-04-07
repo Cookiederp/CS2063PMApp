@@ -64,7 +64,7 @@ public class ProjectSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projectsettings);
-
+        getSupportActionBar().setTitle("Project Settings");
 
 
         Intent intent = getIntent();

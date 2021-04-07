@@ -52,7 +52,7 @@ public class GroupchatPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groupchatpage);
-
+        getSupportActionBar().setTitle("Chat");
         messageEditText = findViewById(R.id.text_send);
         sendBtn = findViewById(R.id.btn_send);
 
