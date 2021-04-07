@@ -49,7 +49,8 @@ public class MembersList extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memberslist);
-
+        getSupportActionBar().setTitle("Members");
+        
         Intent intent = getIntent();
         String projectId = intent.getStringExtra("projectId");
         String projectName = intent.getStringExtra("projectName");

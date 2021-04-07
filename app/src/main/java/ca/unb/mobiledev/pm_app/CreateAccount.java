@@ -51,7 +51,7 @@ public class CreateAccount extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-
+        getSupportActionBar().setTitle("Create Account");
         //listeners for each layout element
         createAcctBtn.setOnClickListener(new View.OnClickListener() {
             @Override

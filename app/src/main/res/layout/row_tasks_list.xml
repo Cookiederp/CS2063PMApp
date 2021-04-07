@@ -19,13 +19,9 @@
             android:layout_marginTop="26dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
-<!-- <<<<<<< sue
             android:textSize="20sp"
             android:textColor="@color/banner"
             />
-======= -->
-            android:textColor="@color/black"
-            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_days"
@@ -34,7 +30,6 @@
             android:layout_marginStart="6dp"
             android:layout_marginTop="6dp"
             android:text="Days left:" />
-<!-- >>>>>>> devolpment -->
 
     </RelativeLayout>
 

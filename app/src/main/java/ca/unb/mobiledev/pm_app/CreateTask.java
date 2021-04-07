@@ -65,7 +65,7 @@ public class CreateTask extends AppCompatActivity {
         myRef = FirebaseDatabase.getInstance().getReference("Tasks").child(projectId).push();
 
         taskDeadline = "none";
-
+        getSupportActionBar().setTitle("Create Task");
         createTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

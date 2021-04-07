@@ -11,7 +11,7 @@ public class Tasks {
     private long deadline;
 
 
-    public Tasks(){
+    public Tasks() {
     }
 
     public Tasks(String id, String projectId, String title, String description, long deadline) {
@@ -66,3 +66,4 @@ public class Tasks {
         this.deadline = deadline;
 
     }
+}
