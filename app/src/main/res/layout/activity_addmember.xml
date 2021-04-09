@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#FCDDBC">
 
 
     <EditText
         android:id="@+id/search_user"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:hint="@string/enterUser" />
+        android:hint="@string/enterUser"
+        android:inputType="text" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_searchmembers"
         android:layout_width="match_parent"
         android:layout_height="600dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:scrollbars="vertical"
         android:layout_below="@+id/search_user"
         android:layout_alignParentBottom="true"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:layout_editor_absoluteX="203dp"
         tools:layout_editor_absoluteY="256dp"
         tools:listitem="@layout/row_members_list" />
-
-
 
 
 </RelativeLayout>

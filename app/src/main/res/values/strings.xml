@@ -27,4 +27,6 @@
     <string name="Confirm">Confirm</string>
     <string name="TaskName">Task Name</string>
     <string name="DateFormat">MM/DD/YYYY</string>
+    <string name="ProjectName">Project Name</string>
+    <string name="TeamName">Team Name</string>/>
 </resources>
