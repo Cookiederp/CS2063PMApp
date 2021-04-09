@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#FCDDBC">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_members"
         android:layout_width="match_parent"
         android:layout_height="600dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:scrollbars="vertical"
         android:layout_alignParentTop="true"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:layout_editor_absoluteX="203dp"
         tools:layout_editor_absoluteY="256dp"
         tools:listitem="@layout/row_members_list" />

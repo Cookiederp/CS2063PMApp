@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FCDDBC">
 
 
     <EditText
@@ -18,7 +19,6 @@
         android:ems="10"
         android:hint="@string/TaskName"
         android:inputType="textPersonName"
-        android:text="Title"
         android:textColor="@color/banner"
         app:layout_constraintBottom_toTopOf="@+id/et_taskdesc"
         app:layout_constraintEnd_toEndOf="parent"
