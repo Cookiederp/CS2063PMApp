@@ -61,7 +61,7 @@ public class ProjectsList extends AppCompatActivity {
     private void getUserProjectsList(){
         projectsList = new ArrayList<>();
 
-        projectsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        projectsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 projectsList.clear();

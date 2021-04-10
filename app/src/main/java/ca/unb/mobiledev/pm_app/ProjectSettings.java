@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -92,20 +93,26 @@ public class ProjectSettings extends AppCompatActivity {
         confirmNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference = FirebaseDatabase.getInstance().getReference("Projects").child(projectId);
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("projectName", projectNameEditText.getText().toString());
-                reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(ProjectSettings.this, "Name Successfully Changed.", Toast.LENGTH_SHORT).show();
+
+                if (TextUtils.isEmpty(projectNameEditText.getText())) {
+                    Toast.makeText(ProjectSettings.this, "Error. Please fill all fields.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    reference = FirebaseDatabase.getInstance().getReference("Projects").child(projectId);
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("projectName", projectNameEditText.getText().toString());
+                    reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(ProjectSettings.this, "Name Successfully Changed.", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(ProjectSettings.this, "Error Changing Name.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else{
-                            Toast.makeText(ProjectSettings.this, "Error Changing Name.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    });
+                }
             }
         });
 
