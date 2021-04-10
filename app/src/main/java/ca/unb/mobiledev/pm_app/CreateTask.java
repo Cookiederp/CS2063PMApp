@@ -70,11 +70,19 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Date deadlineDate = new Date(timestampDeadline);
+                Date currentDate = new Date();
+                long difference_In_Time = deadlineDate.getTime() - currentDate.getTime();
+                long difference_In_Days = ((difference_In_Time / (1000 * 60 * 60 * 24)));
+
                 taskName = nameET.getText().toString();
                 taskDesc = descriptionET.getText().toString();
                 //Not all fields filled, show error message to user
                 if (TextUtils.isEmpty(taskName) || TextUtils.isEmpty(taskDesc)) {
-                    Toast.makeText(CreateTask.this, "Error. Please fill all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateTask.this, "Error. Please fill all fields.", Toast.LENGTH_SHORT).show();
+                }
+                else if(difference_In_Days < 0){
+                    Toast.makeText(CreateTask.this, "Error. Deadline entered is invalid.", Toast.LENGTH_SHORT).show();
                 }
                 //All fields filled, send fields to database to make a task.
                 else {
