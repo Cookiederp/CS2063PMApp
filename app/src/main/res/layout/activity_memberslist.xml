@@ -25,7 +25,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
-        android:backgroundTint="@color/pink"
+        android:backgroundTint="@color/bright_green"
         android:text="@string/AddMember"
         android:textColor="@color/banner" />
 </RelativeLayout>
