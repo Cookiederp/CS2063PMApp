@@ -37,6 +37,7 @@
         <activity android:name=".UserSettings"/>
         <activity android:name=".GroupchatPage"/>
         <activity android:name=".MessageDetail"/>
+        <activity android:name=".TaskSettings"/>
     </application>
 
 </manifest>
