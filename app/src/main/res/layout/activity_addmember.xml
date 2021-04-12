@@ -14,7 +14,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:hint="@string/enterUser"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textColor="@color/banner"
+        android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_searchmembers"
