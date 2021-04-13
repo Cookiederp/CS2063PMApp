@@ -18,7 +18,7 @@
         android:layout_marginStart="38dp"
         android:text="gdfgdfg"
         android:maxLength="38"
-        android:textColor="#E3E3E3"
+        android:textColor="@color/banner"
         android:textSize="14sp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
