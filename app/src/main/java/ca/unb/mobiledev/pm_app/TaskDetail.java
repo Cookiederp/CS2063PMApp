@@ -26,6 +26,7 @@ public class TaskDetail extends AppCompatActivity {
 
 
     private Button settingsButton;
+    private Button closeTaskButton;
     private TextView taskNameText;
     private TextView taskDescriptionText;
 
@@ -51,6 +52,7 @@ public class TaskDetail extends AppCompatActivity {
         //taskDeadline = findViewById(R.id.tv_taskduedate);
         settingsButton = findViewById(R.id.btn_tasksettings);
         taskDeadlineText = findViewById(R.id.tv_deadline);
+        closeTaskButton = findViewById(R.id.btn_closetask);
 
 
         //getting info from clicked task in previous activity
@@ -102,6 +104,13 @@ public class TaskDetail extends AppCompatActivity {
                 intent.putExtra("taskDesc", taskDescription);
                 intent.putExtra("taskDeadline", taskDeadline);
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        closeTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
