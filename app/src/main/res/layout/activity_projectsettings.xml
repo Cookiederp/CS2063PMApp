@@ -55,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon_projectsettings" />
 
-    <Button
+<Button
         android:id="@+id/btn_confirmprojectname"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
