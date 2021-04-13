@@ -13,12 +13,12 @@
         android:id="@+id/tv_nameofsender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:paddingBottom="0dp"
         android:layout_marginStart="38dp"
-        android:text="gdfgdfg"
+        android:layout_marginTop="1dp"
         android:maxLength="38"
-        android:textColor="#E3E3E3"
+        android:paddingBottom="0dp"
+        android:text="gdfgdfg"
+        android:textColor="@color/banner"
         android:textSize="14sp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
