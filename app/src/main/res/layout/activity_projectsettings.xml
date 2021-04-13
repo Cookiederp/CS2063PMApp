@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FCDDBC">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/icon_projectsettings"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="164dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_changeprojecticon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_confirmprojectname" />
 
     <EditText
         android:id="@+id/et_changeprojectname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:ems="10"
+        android:hint="@string/ProjectName"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:textColor="@color/banner"
+        app:layout_constraintBottom_toTopOf="@+id/btn_confirmprojectname"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,23 +43,33 @@
         android:id="@+id/btn_changeprojecticon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="188dp"
-        android:layout_marginEnd="56dp"
-        android:text="Change Icon"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="358dp"
+        android:backgroundTint="@color/light_green"
+        android:text="@string/ChangeIcon"
+        android:textColor="@color/banner"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/icon_projectsettings"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon_projectsettings" />
 
-    <Button
+<Button
         android:id="@+id/btn_confirmprojectname"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="32dp"
-        android:text="Confirm"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/bright_green"
+        android:text="@string/Confirm"
+        android:textColor="@color/banner"
+        app:layout_constraintBottom_toTopOf="@+id/icon_projectsettings"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_changeprojectname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

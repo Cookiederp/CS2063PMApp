@@ -49,7 +49,7 @@ public class AccountHomePage extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userId = firebaseUser.getUid();
         usersRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
-
+        getSupportActionBar().setTitle("Home");
 
         //retrieve the data of the signed in user, might be useful later, right now it is useless
         usersRef.addValueEventListener(new ValueEventListener() {
@@ -57,7 +57,7 @@ public class AccountHomePage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 userIconURL = users.getProfilePicURL();
-                Toast.makeText(AccountHomePage.this, "User First Name: " + users.getFirstName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AccountHomePage.this, "User First Name: " + users.getFirstName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

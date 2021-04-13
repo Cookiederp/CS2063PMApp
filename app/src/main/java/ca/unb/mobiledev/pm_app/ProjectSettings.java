@@ -1,9 +1,11 @@
 package ca.unb.mobiledev.pm_app;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -40,6 +43,7 @@ import java.util.HashMap;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.exifinterface.media.ExifInterface;
 
 public class ProjectSettings extends AppCompatActivity {
@@ -64,7 +68,7 @@ public class ProjectSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projectsettings);
-
+        getSupportActionBar().setTitle("Project Settings");
 
 
         Intent intent = getIntent();
@@ -92,27 +96,35 @@ public class ProjectSettings extends AppCompatActivity {
         confirmNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference = FirebaseDatabase.getInstance().getReference("Projects").child(projectId);
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("projectName", projectNameEditText.getText().toString());
-                reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(ProjectSettings.this, "Name Successfully Changed.", Toast.LENGTH_SHORT).show();
+
+                if (TextUtils.isEmpty(projectNameEditText.getText())) {
+                    Toast.makeText(ProjectSettings.this, "Error. Please fill all fields.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    reference = FirebaseDatabase.getInstance().getReference("Projects").child(projectId);
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("projectName", projectNameEditText.getText().toString());
+                    reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(ProjectSettings.this, "Name Successfully Changed.", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(ProjectSettings.this, "Error Changing Name.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else{
-                            Toast.makeText(ProjectSettings.this, "Error Changing Name.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    });
+                }
             }
         });
 
         changeIconButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SelectImage();
+                ActivityCompat.requestPermissions(ProjectSettings.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1);
             }
         });
 
@@ -128,6 +140,21 @@ public class ProjectSettings extends AppCompatActivity {
         i.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(i, IMAGE_REQUEST);
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    SelectImage();
+                } else {
+                    Toast.makeText(ProjectSettings.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     private String getFileExtension(Uri uri){

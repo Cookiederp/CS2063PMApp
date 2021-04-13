@@ -46,7 +46,7 @@ public class ProjectsList extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projectslist);
-
+        getSupportActionBar().setTitle("Projects");
         //View view = inflater.inflate(R.layout.fragment_projects, container, false);
 
         projectsRecyclerView = (RecyclerView) findViewById(R.id.rv_projects);
@@ -61,7 +61,7 @@ public class ProjectsList extends AppCompatActivity {
     private void getUserProjectsList(){
         projectsList = new ArrayList<>();
 
-        projectsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        projectsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 projectsList.clear();
@@ -74,7 +74,6 @@ public class ProjectsList extends AppCompatActivity {
                     }
                 }
 
-                Log.d("123123", "onDataChange: " + projectsList.size());
                 adapterProjectList = new AdapterProjectList(projectsList);
                 projectsRecyclerView.setAdapter(adapterProjectList);
             }
